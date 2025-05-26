@@ -22,16 +22,13 @@ if([fullname, email, username, password].some((field) => field?.trim() === "")){
 
 // validation if user already exits or not 
 
-const existedUser = User.findOne({ $or: [{ username }, { email }]})
+const existedUser = await User.findOne({ $or: [{ username }, { email }]})
 if(existedUser){
   throw new apiError(409,"User Found in records")
 }
 
 const avatarLocalPath = req.files?.avatar[0]?.path 
-const coverImageLocalPath = rreq.files?.coverImage[0]?.path
-
-console.log(avatarLocalPath)
-console.log(coverImageLocalPath)
+const coverImageLocalPath = req.files?.coverImage[0]?.path
 
 if(!avatarLocalPath){
   throw new apiError(400,"Avatar file is required!")
