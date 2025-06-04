@@ -11,11 +11,14 @@ import fs from "fs"
 // upload file
 const uploadOnCloudinary = async (localFilePath ) => {
   try {
+      if(!localFilePath) return null;
+      // upload file on cloudinary
       const uploadResult = await cloudinary.uploader.upload(localFilePath,{
       resource_type: "auto"
-    })
+    });
     fs.unlinkSync(localFilePath)
     return uploadResult;
+
   } catch (error) {
     fs.unlinkSync(localFilePath) //  remove locally saved temporary file  
     return null;
