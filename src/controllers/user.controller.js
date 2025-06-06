@@ -7,7 +7,7 @@ import { apiResponse } from "../utiles/apiResponse.js";
 // generate tokens
 const generateAccessAndRefreshTokens = async (userId) =>{
   try {
-    const user = User.findById(userId)
+    const user = await User.findById(userId)
     const accessToken = user.generateAccessToken()
     const refreshToken = user.generateRefreshToken()
 
@@ -18,7 +18,7 @@ const generateAccessAndRefreshTokens = async (userId) =>{
     return {refreshToken, accessToken}
 
   } catch (error) {
-    throw new apiError(500,"token creation failed")
+    throw new apiError(500,error, "token creation failed")
   }
 }
 // registeration 
@@ -94,7 +94,7 @@ const loginUser = asyncHandler( async (req, res) => {
 
   const {email,username, password} = req.body;
 
-  if(!username || !email){
+  if(!(username || email)){
     throw new apiError(400,"username or email is required!");
     
   }

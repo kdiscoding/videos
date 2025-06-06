@@ -1,7 +1,7 @@
-import { apiError } from "../utiles/apiError";
-import { asyncHandler } from "../utiles/asyncHandler";
-import { jwt } from "jsonwebtoken"
-import { User } from "../models/user.model";
+import { apiError } from "../utiles/apiError.js";
+import { asyncHandler } from "../utiles/asyncHandler.js";
+import  jwt  from "jsonwebtoken"
+import { User } from "../models/user.model.js";
 
 export const veryfyJWT = asyncHandler( async(req, res, next) => 
   {
